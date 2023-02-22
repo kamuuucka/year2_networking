@@ -64,3 +64,9 @@ D:/Dropbox/HW/saxion/courses_cmgt/2_3_networking/003_assignments/A2_chatbox/A2_c
 /Users/kama/Documents/School/Networking/A2_chatbox/starting_code/server/obj/x86/Debug/server.csproj.CoreCompileInputs.cache
 /Users/kama/Documents/School/Networking/A2_chatbox/starting_code/server/obj/x86/Debug/server.exe
 /Users/kama/Documents/School/Networking/A2_chatbox/starting_code/server/obj/x86/Debug/server.pdb
+/Users/kama/Documents/School/year2_networking/starting_code/server/bin/Debug/server.exe
+/Users/kama/Documents/School/year2_networking/starting_code/server/bin/Debug/server.pdb
+/Users/kama/Documents/School/year2_networking/starting_code/server/obj/x86/Debug/server.csproj.AssemblyReference.cache
+/Users/kama/Documents/School/year2_networking/starting_code/server/obj/x86/Debug/server.csproj.CoreCompileInputs.cache
+/Users/kama/Documents/School/year2_networking/starting_code/server/obj/x86/Debug/server.exe
+/Users/kama/Documents/School/year2_networking/starting_code/server/obj/x86/Debug/server.pdb

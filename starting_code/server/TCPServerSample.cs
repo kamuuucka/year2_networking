@@ -17,6 +17,8 @@ class TCPServerSample
 	private IDictionary<TcpClient, string> _clientNames = new Dictionary<TcpClient, string>();
 	private IDictionary<TcpClient, string> _newClientNames = new Dictionary<TcpClient, string>();
 	private int _number = 0;
+
+	private bool _doesExist = false;
 	//private string _newName;
 
 	private TCPServerSample(int port)
@@ -76,36 +78,41 @@ class TCPServerSample
 			string inString = Encoding.UTF8.GetString(message);
 			if (inString.StartsWith("/"))
 			{
-				
-				Console.WriteLine("Using commands");
 				string serverMessage = "This command does not exist";
 				bool nameChanged = false;
 
 				if (inString.Equals("/help"))
 				{
-					serverMessage = "Commands list.";
-				} else if (inString.Equals("/list"))
+					serverMessage = "/help - Shows the list of commands\n" +
+					                "/list - Shows the list of names\n" +
+					                "/setname {name} - Sets the new name for you";
+				} 
+				else if (inString.Equals("/list"))
 				{
-					serverMessage = "list of users";
+					string list = "";
+					foreach (var name in _registeredNames)
+					{
+						list += name + "\n";
+					}
+					serverMessage = list.Substring(0, list.Length-1);
 				} 
 				else if (inString.StartsWith("/setname "))
 				{
 					string newName = inString.Substring(9).ToLower();
 					foreach (var name in _registeredNames)
 					{
-						//TODO: all clients are getting new names!!!!
-						//Console.WriteLine(key.Value);
 						if (name.Equals(newName))
 						{
 							serverMessage = "This name is already taken!";
+							_doesExist = true;
 						}
-						else
-						{
-							_newClientNames[client] = newName;
-							Console.WriteLine(_newClientNames[client] +" is now " + newName);
-							serverMessage = _clientNames[client] + " changed name to " + newName;
-							nameChanged = true;
-						}
+					}
+					if (!_doesExist)
+					{
+						_newClientNames[client] = newName;
+						Console.WriteLine("Name {0} added to the list for: {1}", newName, _clientNames[client]);
+						serverMessage =_clientNames[client]+ " changed name to " + newName;
+						nameChanged = true;
 					}
 				}
 				
@@ -146,13 +153,14 @@ class TCPServerSample
 	{
 		foreach (var newClient in _newClientNames)
 		{
-			Console.WriteLine("I am changing names");
+			Console.WriteLine("Updating names");
 			_registeredNames.Remove(_clientNames[newClient.Key]);
 			_clientNames[newClient.Key] = newClient.Value;
-			_registeredNames.Add(newClient.Value);
+			_registeredNames.Add(_clientNames[newClient.Key]);
 		}
 		
 		_newClientNames.Clear();
+		_doesExist = false;
 	}
 
 	private void SentToEveryone(byte[] newMessage)

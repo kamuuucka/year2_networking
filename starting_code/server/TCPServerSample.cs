@@ -17,9 +17,7 @@ class TCPServerSample
 	private IDictionary<TcpClient, string> _clientNames = new Dictionary<TcpClient, string>();
 	private IDictionary<TcpClient, string> _newClientNames = new Dictionary<TcpClient, string>();
 	private int _number = 0;
-
 	private bool _doesExist = false;
-	//private string _newName;
 
 	private TCPServerSample(int port)
 	{
@@ -107,6 +105,7 @@ class TCPServerSample
 							_doesExist = true;
 						}
 					}
+					
 					if (!_doesExist)
 					{
 						_newClientNames[client] = newName;
@@ -145,7 +144,6 @@ class TCPServerSample
 			_clientNames.Remove(client);
 			Console.WriteLine("Removing faulty client");
 		}
-		
 		_faultyClients.Clear();
 	}
 
@@ -158,7 +156,6 @@ class TCPServerSample
 			_clientNames[newClient.Key] = newClient.Value;
 			_registeredNames.Add(_clientNames[newClient.Key]);
 		}
-		
 		_newClientNames.Clear();
 		_doesExist = false;
 	}
